@@ -1,20 +1,22 @@
 <template>
-  <div>
-    <h2>{{ entry.title }}</h2>
-    <div v-html="entry.body"></div>
+  <div class="wrapper">
+    <h2 class="title">{{ post.title }}</h2>
+    <p>{{ post.date | formatDate }}</p>
+    <!-- eslint-disable-next-line vue/no-v-html-->
+    <div class="body" v-html="post.body"></div>
+    <a href="/">トップ</a>
   </div>
 </template>
 
 <script>
-import axios from 'axios'
 export default {
-  async asyncData({ $config, params, error }) {
+  async asyncData({ $axios, $config, params, error }) {
     try {
-      const { data } = await axios.get(
+      const { data } = await $axios.get(
         `${$config.apiUrl}71803/entries/${params.id}`
       )
       return {
-        entry: data,
+        post: data,
       }
     } catch (err) {
       error({
@@ -24,3 +26,16 @@ export default {
   },
 }
 </script>
+
+<style>
+.wrapper {
+  width: 600px;
+  margin: auto;
+}
+.title {
+  font-size: 30px;
+}
+.body {
+  font-size: 20px;
+}
+</style>

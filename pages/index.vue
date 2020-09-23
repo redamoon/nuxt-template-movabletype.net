@@ -1,24 +1,21 @@
 <template>
-  <div>
-    <div v-for="(entry, index) in entries" :key="index">
-      <h2>{{ entry.title }}</h2>
-      <p>{{ entry.date }}</p>
-      <p>{{ entry.id }}</p>
-      <a :href="`/blog/${entry.id}`">記事詳細</a>
-      <div v-html="entry.body"></div>
+  <div class="list">
+    <div v-for="(post, index) in posts" :key="index" class="item">
+      <a :href="`/blog/${post.id}`">
+        <h2 class="title">{{ post.title }}</h2>
+        <p>{{ post.date | formatDate }}</p>
+      </a>
     </div>
   </div>
 </template>
 
 <script>
-import axios from 'axios'
 export default {
-  async asyncData({ $config, error }) {
+  async asyncData({ $axios, $config, error }) {
     try {
-      const { data } = await axios.get(`${$config.apiUrl}71803/entries`)
-      // const { items } = data
+      const { data } = await $axios.get(`${$config.apiUrl}71803/entries`)
       return {
-        entries: data.items,
+        posts: data.items,
       }
     } catch (err) {
       error({
@@ -28,3 +25,26 @@ export default {
   },
 }
 </script>
+
+<style>
+.list {
+  width: 600px;
+  margin: 20px auto 0;
+}
+.item {
+  border-radius: 5px;
+  background: #e5e5e5;
+  margin-bottom: 20px;
+}
+.item > a {
+  padding: 10px;
+  box-sizing: border-box;
+  display: block;
+  text-decoration: none;
+  color: #000;
+}
+.title {
+  margin: 0;
+  padding: 0;
+}
+</style>
