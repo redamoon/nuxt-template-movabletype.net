@@ -13,9 +13,11 @@
 export default {
   async asyncData({ $axios, $config, error }) {
     try {
-      const { data } = await $axios.get(`${$config.apiUrl}71803/entries`)
+      const {
+        data: { items },
+      } = await $axios.get(`${$config.apiUrl}71803/entries`)
       return {
-        posts: data.items,
+        posts: items,
       }
     } catch (err) {
       error({
