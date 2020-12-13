@@ -1,4 +1,4 @@
-const { API_URL } = process.env
+const { API_URL, BLOG_ID } = process.env
 
 export default {
   /*
@@ -60,6 +60,7 @@ export default {
   ],
   publicRuntimeConfig: {
     apiUrl: API_URL,
+    blogId: BLOG_ID,
   },
   /*
    ** Axios module configuration

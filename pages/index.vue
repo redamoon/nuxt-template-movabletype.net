@@ -15,7 +15,7 @@ export default {
     try {
       const {
         data: { items },
-      } = await $axios.get(`${$config.apiUrl}71803/entries`)
+      } = await $axios.get(`${$config.apiUrl}${$config.blogId}/entries`)
       return {
         posts: items,
       }
