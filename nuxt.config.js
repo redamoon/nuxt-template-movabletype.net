@@ -74,19 +74,4 @@ export default {
    ** See https://nuxtjs.org/api/configuration-build/
    */
   build: {},
-  generate: {
-    fallback: true,
-    routes() {
-      const blog = axios
-        .get(`${process.env.API_URL}71803/entries`)
-        .then((res) => {
-          return res.data.items.map((entry) => {
-            return '/blog/' + entry.id
-          })
-        })
-      return Promise.all([blog]).then((values) => {
-        return values.join().split(',')
-      })
-    },
-  },
 }
